@@ -3,27 +3,24 @@ PATH_TRAIN = 'train.csv'
 PATH_TEST = 'test.csv'
 
 # объявим куда сохраним результат
-PATH_PRED = 'pred_1.csv'
+PATH_PRED = 'sample/pred.csv'
 
 
 ## Из тренировочного набора собираем статистику о встречаемости слов
 
 # создаем словарь для хранения статистики
 word_stat_dict = {}
-all_words_dict = {}
 
 # открываем файл на чтение в режиме текста
 fl = open(PATH_TRAIN, 'rt', encoding='utf-8')
 
 # считываем первую строчку - заголовок (она нам не нужна)
 fl.readline()
-c = 0
+
 # в цикле читаем строчки из файла
 for line in fl:
-    c += 1
     # разбиваем строчку на три строковые переменные
     Id, Sample, Prediction = line.strip().split(',')
-    all_words_dict[Sample] = Prediction
     # строковая переменная Prediction - содержит в себе словосочетание из 2 слов, разделим их
     word1, word2 = Prediction.split(' ')
     # возьмем в качестве ключа 2 первые буквы, т.к. их наличие гарантировано
@@ -39,10 +36,6 @@ for line in fl:
 
 # закрываем файл
 fl.close()
-
-print(all_words_dict)
-print(all_words_dict.__len__())
-print(c)
 
 ## Строим модель
 
@@ -73,19 +66,16 @@ out_fl.write('Id,Prediction\n')
 for line in fl:
     # разбиваем строчку на две строковые переменные
     Id, Sample = line.strip().split(',')
-    if Sample in all_words_dict:
-        out_fl.write('%s,%s\n' % (Id, all_words_dict[Sample]))
+    # строковая переменная Sample содержит в себе полностью первое слово и кусок второго слова, разделим их
+    word1, word2_chunk = Sample.split(' ')
+    # вычислим ключ для заданного фрагмента второго слова
+    key = word2_chunk[:2]
+    if key in most_freq_dict:
+        # если ключ есть в нашем словаре, пишем в файл предсказаний: Id, первое слово, наиболее вероятное второе слово
+        out_fl.write('%s,%s %s\n' % (Id, word1, most_freq_dict[key]) )
     else:
-        # строковая переменная Sample содержит в себе полностью первое слово и кусок второго слова, разделим их
-        word1, word2_chunk = Sample.split(' ')
-        # вычислим ключ для заданного фрагмента второго слова
-        key = word2_chunk[:2]
-        if key in most_freq_dict:
-            # если ключ есть в нашем словаре, пишем в файл предсказаний: Id, первое слово, наиболее вероятное второе слово
-            out_fl.write('%s,%s %s\n' % (Id, word1, most_freq_dict[key]) )
-        else:
-            # иначе пишем наиболее часто встречающееся словосочетание в целом
-            out_fl.write('%s,%s\n' % (Id, 'что она') )
+        # иначе пишем наиболее часто встречающееся словосочетание в целом
+        out_fl.write('%s,%s\n' % (Id, 'что она') )
 
 # закрываем файлы
 fl.close()
