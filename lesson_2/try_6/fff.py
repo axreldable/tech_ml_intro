@@ -16,3 +16,7 @@ map = {'aaa': '1', 'bbb': '3', 'ccc': '2'}
 # map = {'aaa': 1}
 v = maxFromMap(map)
 print(v)
+
+
+list = 'abcde'
+print(list[:5-2])
