@@ -8,19 +8,29 @@ PATH_TEST = 'test.csv'
 PATH_PRED = 'try_9/pred_9.csv'
 PATH_REZ = 'try_9/rez.csv'
 
+# def answers_list(sample, dict_with_answers):
+#     word11, word21 = sample.split(' ')
+#     rez = []
+#     len1 = word21.__len__()
+#     if len1 == 2:
+#         search_key = word11 + ' ' + word21
+#         if search_key in dict_with_answers:
+#             rez.append(dict_with_answers[search_key])
+#     else:
+#         for i in range(0, len1 - 2):
+#             search_key = word11 + ' ' + word21[:len1 - i]
+#             if search_key in dict_with_answers:
+#                 rez.append(dict_with_answers[search_key])
+#     return rez
+
 def answers_list(sample, dict_with_answers):
     word11, word21 = sample.split(' ')
     rez = []
     len1 = word21.__len__()
-    if len1 == 2:
-        search_key = word11 + ' ' + word21
+    for i in range(0, len1 - 1):
+        search_key = word11 + ' ' + word21[:len1 - i]
         if search_key in dict_with_answers:
             rez.append(dict_with_answers[search_key])
-    else:
-        for i in range(0, len1 - 2):
-            search_key = word11 + ' ' + word21[:len1 - i]
-            if search_key in dict_with_answers:
-                rez.append(dict_with_answers[search_key])
     return rez
 
 
