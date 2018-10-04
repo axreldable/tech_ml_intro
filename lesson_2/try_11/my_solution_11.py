@@ -5,7 +5,8 @@ PATH_TRAIN = 'train.csv'
 PATH_TEST = 'test.csv'
 
 # объявим куда сохраним результат
-PATH_PRED = 'try_6/pred_6.csv'
+PATH_PRED = 'try_11/pred_11.csv'
+PATH_REZ = 'try_11/rez.csv'
 
 
 ## Из тренировочного набора собираем статистику о встречаемости слов
@@ -155,7 +156,7 @@ for line in fl:
 fl.close()
 
 fl = open(PATH_PRED, 'rt', encoding='utf-8')
-flw = open('try_6/rez.csv', 'wt', encoding='utf-8')
+flw = open(PATH_REZ, 'wt', encoding='utf-8')
 fl.readline()
 for line in fl:
     Id, Sample = line.strip().split(',')

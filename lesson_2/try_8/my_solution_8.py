@@ -112,7 +112,7 @@ for line in fl:
         if key in most_freq_dict:
             # если ключ есть в нашем словаре, пишем в файл предсказаний: Id, первое слово, наиболее вероятное второе слово
             # out_fl.write('%s,%s\n' % (Id, most_freq_dict[key]) )
-            out_fl.write('%s,%s\n' % (Id, most_freq_dict[key]) ) # здесь записываются только 200 значений
+            out_fl.write('%s,%s\n' % (Id, 'pup') ) # здесь записываются только 200 значений
         else:
             # иначе пишем наиболее часто встречающееся словосочетание в целом
             out_fl.write('%s,%s\n' % (Id, 'super') )
