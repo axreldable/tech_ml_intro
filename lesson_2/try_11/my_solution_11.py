@@ -9,6 +9,17 @@ PATH_PRED = 'try_11/pred_11.csv'
 PATH_REZ = 'try_11/rez.csv'
 
 
+def answers_list(sample, dict_with_answers):
+    word11, word21 = sample.split(' ')
+    rez = []
+    len1 = word21.__len__()
+    for i in range(0, len1 - 1):
+        search_key = word11 + ' ' + word21[:len1 - i]
+        if search_key in dict_with_answers:
+            rez.append(dict_with_answers[search_key])
+    return rez
+
+
 ## Из тренировочного набора собираем статистику о встречаемости слов
 
 # создаем словарь для хранения статистики
@@ -123,14 +134,9 @@ for line in fl:
     if Sample in most_freq_dict_all:
         out_fl.write('%s,%s\n' % (Id, most_freq_dict_all[Sample]))
     else:
-        # строковая переменная Sample содержит в себе полностью первое слово и кусок второго слова, разделим их
-        word1, word2_chunk = Sample.split(' ')
-        # вычислим ключ для заданного фрагмента второго слова
-        key = word1 + ' ' + word2_chunk[:2]
-        if key in most_freq_dict:
-            # если ключ есть в нашем словаре, пишем в файл предсказаний: Id, первое слово, наиболее вероятное второе слово
-            # out_fl.write('%s,%s\n' % (Id, most_freq_dict[key]) )
-            out_fl.write('%s,%s\n' % (Id, 'pup') ) # здесь записываются только 200 значений
+        answe_list = answers_list(Sample, most_freq_dict_all)
+        if answe_list.__len__() > 0:
+            out_fl.write('%s,%s\n' % (Id, answe_list[0]))
         else:
             # иначе пишем наиболее часто встречающееся словосочетание в целом
             out_fl.write('%s,%s\n' % (Id, 'super') )
