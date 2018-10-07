@@ -65,7 +65,7 @@ for line in fl:
         if key in most_freq_dict:
             out_fl.write('%s,%s\n' % (Id, most_freq_dict[key]))
         else:
-            out_fl.write('%s,%s\n' % (Id, 'no use this value'))
+            out_fl.write('%s,%s\n' % (Id, 'not use this value'))
 
 fl.close()
 out_fl.close()
