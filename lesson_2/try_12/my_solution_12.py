@@ -145,7 +145,7 @@ for line in fl:
         if Sample in most_freq_dict_dict:
             # если ключ есть в нашем словаре, пишем в файл предсказаний: Id, первое слово, наиболее вероятное второе слово
             # out_fl.write('%s,%s\n' % (Id, most_freq_dict[key]) )
-            out_fl.write('%s,%s\n' % (Id, most_freq_dict_dict[Sample]) ) # здесь записываются только 200 значений
+            out_fl.write('%s,%s\n' % (Id, 'pup') ) # здесь записываются только 200 значений
         else:
             # иначе пишем наиболее часто встречающееся словосочетание в целом
             out_fl.write('%s,%s\n' % (Id, 'super') )
@@ -157,6 +157,10 @@ out_fl.close()
 print(len(dict))
 pp = pprint.PrettyPrinter()
 pp.pprint(dict)
+
+print(len(most_freq_dict_dict))
+pp = pprint.PrettyPrinter()
+pp.pprint(most_freq_dict_dict)
 
 dict_with_test = {}
 fl = open(PATH_TEST, 'rt', encoding='utf-8')
