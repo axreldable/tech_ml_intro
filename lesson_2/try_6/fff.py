@@ -19,4 +19,7 @@ print(v)
 
 
 list = 'abcde'
-print(list[:5-2])
+while len(list) != 1:
+    print(list)
+    list = list[:len(list)-1]
+# print(list[:len(list)-1])
